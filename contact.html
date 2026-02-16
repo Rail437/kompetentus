@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Контакты — Компетентус</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <div class="container nav">
+        <div class="logo-wrapper">
+            <img src="assets/logo.png" height="40">
+        </div>
+
+        <div class="burger" id="burger">
+            ☰
+        </div>
+
+        <ul id="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="about.html">О нас</a></li>
+            <li><a href="contact.html" class="active">Контакты</a></li>
+        </ul>
+    </div>
+</header>
+
+<!-- HERO -->
+<section class="contact-hero">
+    <div class="container">
+        <h1>Свяжитесь с нами</h1>
+        <p>Мы открыты к диалогу и готовы обсудить вашу задачу</p>
+    </div>
+</section>
+
+<!-- БЛОК 1 -->
+<section>
+    <div class="container contact-row">
+        <div class="contact-text">
+            <h2>Контактная информация</h2>
+            <p>
+                Мы работаем с IT-компаниями, финтехом и digital-бизнесом.
+                Ответим на ваш запрос в течение одного рабочего дня.
+            </p>
+
+            <div class="contact-info">
+                <div>
+                    <strong>Телефон:</strong><br>
+                    +7 (900) 000-00-00
+                </div>
+                <div>
+                    <strong>Email:</strong><br>
+                    info@kompetentus.ru
+                </div>
+                <div>
+                    <strong>Telegram:</strong><br>
+                    @kompetentus
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-card">
+            <h3>Рабочие часы</h3>
+            <p>Пн–Пт: 9:00 – 18:00</p>
+            <p>Сб–Вс: по договорённости</p>
+
+            <h3 style="margin-top:30px;">Офис</h3>
+            <p>Москва, Пресненская набережная, 12</p>
+        </div>
+    </div>
+</section>
+
+<!-- БЛОК 2 (КАРТА) -->
+<section>
+    <div class="container contact-row reverse">
+        <div class="contact-map">
+            <iframe
+                    src="https://yandex.ru/map-widget/v1/?um=constructor%3A2e7a6c6b3e8b4b4b4b4b4b4b4b4b4b4b&amp;source=constructor"
+                    width="100%"
+                    height="350"
+                    frameborder="0">
+            </iframe>
+        </div>
+
+        <div class="contact-text">
+            <h2>Наш офис</h2>
+            <p>
+                Мы находимся в деловом центре Москвы.
+                Встречи проходят по предварительной записи.
+            </p>
+            <p>
+                Для удалённых клиентов доступны видеоконференции.
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- ФОРМА -->
+<section>
+    <div class="container">
+        <h2 style="text-align:center;">Оставить заявку</h2>
+
+        <div class="contact-form">
+            <input type="text" placeholder="Ваше имя">
+            <input type="email" placeholder="Email">
+            <textarea placeholder="Опишите вашу задачу"></textarea>
+            <button class="btn-primary">Отправить</button>
+        </div>
+    </div>
+</section>
+
+<footer class="footer-modern">
+    © 2026 Компетентус. Премиальный подбор персонала.
+</footer>
+<script src="script.js"></script>
+</body>
+</html>
