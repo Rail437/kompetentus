@@ -428,13 +428,15 @@
                     <p style="color: #7f8c8d;">Загружаем договор...</p>
                 </div>
 
-                <div style="position: relative; width: 100%; padding-top: 75%; min-height: 400px; background: #fff; border-radius: 8px; overflow: hidden;">
+                <!-- Убрал padding-top и overflow:hidden, добавил высоту -->
+                <div style="position: relative; width: 100%; height: 80vh; background: #fff; border-radius: 8px;">
                     <iframe
                             id="pdfFrame"
                             src="https://docs.google.com/viewer?url=https://kompetentus.ru/doc/dogovor.pdf&embedded=true&toolbar=0&navpanes=0&hl=ru&rm=minimal"
                             style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; opacity: 0; transition: opacity 0.3s;"
                             onload="document.getElementById('pdfLoader').style.display='none'; this.style.opacity='1';"
-                            title="Договор оферты">
+                            title="Договор оферты"
+                            allowfullscreen>
                     </iframe>
                 </div>
             </div>

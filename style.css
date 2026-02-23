@@ -804,4 +804,29 @@ footer {
     }
 
 }
+/* Для мобильных устройств */
+@media (max-width: 768px) {
+    .pdf-container {
+        height: auto;
+        min-height: 600px; /* Минимальная высота */
+    }
 
+    .pdf-container > div {
+        height: 70vh !important; /* Высота 70% от экрана */
+        min-height: 500px;
+        overflow: auto !important; /* Включаем скролл */
+        -webkit-overflow-scrolling: touch; /* Плавный скролл на iOS */
+    }
+
+    #pdfFrame {
+        height: 100% !important;
+        min-height: 500px;
+    }
+}
+
+/* Для совсем маленьких экранов */
+@media (max-width: 480px) {
+    .pdf-container > div {
+        height: 80vh !important;
+    }
+}
