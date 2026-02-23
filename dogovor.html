@@ -425,13 +425,14 @@
             <div class="pdf-container">
                 <div id="pdfLoader">
                     <div class="loader"></div>
-                    <p style="color: #7f8c8d; overflow: hidden;">Загружаем договор...</p>
+                    <p style="color: #7f8c8d;">Загружаем договор...</p>
                 </div>
+
                 <iframe
                         id="pdfFrame"
-                        src="doc/dogovor.pdf?url=https://&embedded=true&toolbar=0&navpanes=0&toolbar=0&view=FitH&hl=ru"
+                        src="https://docs.google.com/viewer?url=https://kompetentus.ru/doc/dogovor.pdf&embedded=true&toolbar=0&navpanes=0&scrollbar=0&chrome=false"
                         title="Договор оферты"
-                        onload="document.getElementById('pdfLoader').style.display='none'; this.style.opacity='1';">
+                        onload="document.getElementById('pdfLoader').style.display='none'; this.style.opacity='1'; document.getElementById('pdfMobileFallback').style.display='none';">
                 </iframe>
             </div>
         </div>
