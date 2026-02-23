@@ -41,16 +41,21 @@ body::after {
     max-width: 1200px;
     margin: auto;
 }
+.logo-wrapper img {
+    display: block;
+    height: 60px;
+}
 
 .logo-wrapper {
-    background: white;
-    padding-top: 5px;
+    display: inline-block;
+    background: whitesmoke;
+    padding-top: 0px;
     padding-right: 5px;
-    padding-bottom: 0px;
+    padding-bottom: -1px;
     padding-left: 5px;
 
     border-radius: 30px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 0px 15px rgba(0,0,0,0.1);
 }
 
 header {
