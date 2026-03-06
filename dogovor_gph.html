@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Компетентус — Договор оферты</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" type="image/png" href="assets/logo_2.png">
+    <style>
+        /* Специфичные стили только для страницы договора */
+        .contract-page {
+            background: #F4F7F5;
+            min-height: 100vh;
+        }
+
+        .contract-hero {
+            background: linear-gradient(135deg, #2a8847, #478554);
+            padding: 60px 0 40px;
+            color: white;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .contract-hero::before {
+            content: "";
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            top: -200px;
+            right: -200px;
+            border-radius: 50%;
+        }
+
+        .contract-hero h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contract-hero p {
+            font-size: 18px;
+            opacity: 0.95;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        .contract-container {
+            max-width: 1000px;
+            margin: 40px auto 80px;
+            padding: 0 20px;
+        }
+
+        /* Карточка с PDF */
+        .contract-card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            overflow: hidden;
+            margin-bottom: 40px;
+            border: 1px solid rgba(33,160,56,0.1);
+        }
+
+        .contract-card-header {
+            padding: 25px 30px;
+            background: linear-gradient(135deg, #f8fffa, #f0f9f0);
+            border-bottom: 1px solid rgba(33,160,56,0.15);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contract-card-header .icon {
+            width: 50px;
+            height: 50px;
+            background: #21A038;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+        }
+
+        .contract-card-header h2 {
+            margin: 0;
+            text-align: left;
+            font-size: 24px;
+            color: #1C1C1C;
+        }
+
+        .contract-card-header p {
+            color: #666;
+            margin-top: 5px;
+        }
+
+        .pdf-container {
+            position: relative;
+            width: 100%;
+            height: 600px;
+            background: #f5f5f5;
+        }
+
+        #pdfLoader {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        .loader {
+            width: 50px;
+            height: 50px;
+            border: 4px solid rgba(33,160,56,0.2);
+            border-top-color: #21A038;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        #pdfFrame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        /* Форма для реквизитов */
+        .form-card {
+            background: white;
+            border-radius: 30px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            padding: 40px;
+            border: 1px solid rgba(33,160,56,0.1);
+        }
+
+        .form-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #1C1C1C;
+            position: relative;
+            padding-bottom: 15px;
+        }
+
+        .form-title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 3px;
+            background: #21A038;
+            border-radius: 2px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 5px;
+        }
+
+        .form-group.full-width {
+            grid-column: span 2;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 500;
+            color: #2c3e50;
+            font-size: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 18px;
+            border: 2px solid #eef2f0;
+            border-radius: 16px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #fafbfa;
+        }
+
+        .form-group input:focus {
+            border-color: #21A038;
+            background: white;
+            box-shadow: 0 0 0 4px rgba(33,160,56,0.1);
+            outline: none;
+        }
+
+        .field-hint {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 6px;
+            padding-left: 5px;
+        }
+
+        .checkbox-group {
+            grid-column: span 2;
+            background: #f8fdf9;
+            padding: 25px;
+            border-radius: 20px;
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+            border: 1px solid rgba(33,160,56,0.15);
+        }
+
+        .checkbox-group input {
+            width: 22px;
+            height: 22px;
+            margin-top: 2px;
+            accent-color: #21A038;
+        }
+
+        .checkbox-group label {
+            font-weight: 400;
+            color: #2c3e50;
+            line-height: 1.5;
+            margin: 0;
+        }
+
+        .btn-contract {
+            grid-column: span 2;
+            background: #21A038;
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-top: 20px;
+            box-shadow: 0 10px 25px rgba(33,160,56,0.3);
+        }
+
+        .btn-contract:hover {
+            background: #0D7A2F;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 30px rgba(33,160,56,0.4);
+        }
+
+        /* Уведомление об успехе */
+        .success-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: white;
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            z-index: 10000;
+            text-align: center;
+            max-width: 450px;
+            animation: slideUp 0.4s ease;
+            border: 1px solid rgba(33,160,56,0.2);
+        }
+
+        .success-icon {
+            width: 70px;
+            height: 70px;
+            background: #21A038;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            font-size: 35px;
+            color: white;
+        }
+
+        .success-message h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            color: #1C1C1C;
+        }
+
+        .success-message p {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+
+        .btn-close {
+            background: #f0f0f0;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: 0.3s;
+            color: #333;
+        }
+
+        .btn-close:hover {
+            background: #e0e0e0;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translate(-50%, 0%);
+            }
+            to {
+                opacity: 1;
+                transform: translate(-50%, -50%);
+            }
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .contract-hero h1 {
+                font-size: 32px;
+            }
+
+            .contract-container {
+                margin: 20px auto 60px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full-width,
+            .checkbox-group,
+            .btn-contract {
+                grid-column: span 1;
+            }
+
+            .pdf-container {
+                height: 450px;
+            }
+
+            .contract-card-header {
+                flex-direction: column;
+                text-align: center;
+                padding: 20px;
+            }
+
+            .form-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .pdf-container {
+                height: 350px;
+            }
+
+            .checkbox-group {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+
+        /* Для навбара - небольшое дополнение к существующим стилям */
+        .nav a {
+            /* стили уже есть в вашем CSS */
+        }
+    </style>
+</head>
+<body>
+<header>
+    <div class="container nav">
+        <div class="logo-wrapper">
+            <img src="assets/logo.png" alt="Компетентус">
+        </div>
+
+        <div class="burger" id="burger">
+            ☰
+        </div>
+
+        <ul id="nav-menu">
+            <li><a href="index.html">Главная</a></li>
+            <li><a href="about.html">О нас</a></li>
+            <li><a href="contact.html">Контакты</a></li>
+            <li><a href="dogovor.html" class="active">Договор</a></li>
+        </ul>
+    </div>
+</header>
+
+<main class="contract-page">
+    <!-- Hero секция -->
+    <section class="contract-hero">
+        <div class="container">
+            <h1>Договор оферты</h1>
+            <p>Ознакомьтесь с условиями сотрудничества и заполните реквизиты для акцепта</p>
+        </div>
+    </section>
+
+    <div class="contract-container">
+        <!-- Блок с PDF договором -->
+        <div class="contract-card">
+            <div class="contract-card-header">
+                <div class="icon">📄</div>
+                <div>
+                    <h2>Договор на оказание услуг по подбору персонала</h2>
+                    <p>Внимательно ознакомьтесь с условиями перед заполнением</p>
+                </div>
+            </div>
+
+            <div class="pdf-container">
+                <div id="pdfLoader">
+                    <div class="loader"></div>
+                    <p style="color: #7f8c8d;">Загружаем договор...</p>
+                </div>
+
+                <!-- Убрал padding-top и overflow:hidden, добавил высоту -->
+                <div style="position: relative; width: 100%; height: 80vh; background: #fff; border-radius: 8px;">
+                    <iframe
+                            id="pdfFrame"
+                            src="https://docs.google.com/viewer?url=https://kompetentus.ru/doc/gph.pdf&embedded=true&toolbar=0&navpanes=0&hl=ru&rm=minimal"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; opacity: 0; transition: opacity 0.3s;"
+                            onload="document.getElementById('pdfLoader').style.display='none'; this.style.opacity='1';"
+                            title="Договор оферты"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма для реквизитов -->
+        <div class="form-card">
+            <h2 class="form-title">Реквизиты для акцепта</h2>
+
+            <form id="contractForm">
+                <div class="form-grid">
+                    <!-- ИП / Юридическое лицо -->
+                    <div class="form-group full-width">
+                        <label for="companyName">Наименование организации / ИП *</label>
+                        <input type="text" id="companyName" name="companyName" placeholder="ООО «Компания» или ИП Иванов И.И." required>
+                        <div class="field-hint">Полное наименование согласно учредительным документам</div>
+                    </div>
+
+                    <!-- ИНН -->
+                    <div class="form-group">
+                        <label for="inn">ИНН *</label>
+                        <input type="text" id="inn" name="inn" placeholder="12 цифр для ИП, 10 для ООО" maxlength="12" required>
+                        <div class="field-hint">Идентификационный номер налогоплательщика</div>
+                    </div>
+
+                    <!-- КПП (для юрлиц) -->
+                    <div class="form-group">
+                        <label for="kpp">КПП</label>
+                        <input type="text" id="kpp" name="kpp" placeholder="9 цифр (для ООО)">
+                        <div class="field-hint">Для ИП не заполняется</div>
+                    </div>
+
+                    <!-- Телефон -->
+                    <div class="form-group">
+                        <label for="phone">Контактный телефон *</label>
+                        <input type="tel" id="phone" name="phone" placeholder="+7 (999) 123-45-67" required>
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group">
+                        <label for="email">Email *</label>
+                        <input type="email" id="email" name="email" placeholder="company@example.ru" required>
+                    </div>
+
+                    <!-- Юридический адрес -->
+                    <div class="form-group full-width">
+                        <label for="legalAddress">Юридический адрес *</label>
+                        <input type="text" id="legalAddress" name="legalAddress" placeholder="Индекс, город, улица, дом" required>
+                    </div>
+
+                    <!-- Расчётный счёт -->
+                    <div class="form-group">
+                        <label for="account">Расчётный счёт *</label>
+                        <input type="text" id="account" name="account" placeholder="20 цифр" maxlength="20" required>
+                    </div>
+
+                    <!-- БИК -->
+                    <div class="form-group">
+                        <label for="bik">БИК *</label>
+                        <input type="text" id="bik" name="bik" placeholder="9 цифр" maxlength="9" required>
+                    </div>
+
+                    <!-- Банк -->
+                    <div class="form-group full-width">
+                        <label for="bank">Наименование банка *</label>
+                        <input type="text" id="bank" name="bank" placeholder="ПАО Сбербанк" required>
+                    </div>
+
+                    <!-- Корр. счёт -->
+                    <div class="form-group">
+                        <label for="corrAccount">Корреспондентский счёт *</label>
+                        <input type="text" id="corrAccount" name="corrAccount" placeholder="20 цифр" maxlength="20" required>
+                    </div>
+
+                    <!-- Директор / Представитель -->
+                    <div class="form-group">
+                        <label for="director">Руководитель *</label>
+                        <input type="text" id="director" name="director" placeholder="Иванов Иван Иванович" required>
+                    </div>
+
+                    <!-- Должность руководителя (скрытое поле или явное) -->
+                    <div class="form-group">
+                        <label for="directorPosition">Должность руководителя</label>
+                        <input type="text" id="directorPosition" name="directorPosition" value="Генеральный директор">
+                    </div>
+
+                    <!-- Блок согласия -->
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="consent" name="consent" required>
+                        <label for="consent">
+                            <strong>Я подтверждаю, что ознакомился с условиями договора оферты, полностью согласен с ними и акцептую его условия.</strong>
+                            Также даю согласие на обработку персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».
+                        </label>
+                    </div>
+
+                    <!-- Кнопка отправки -->
+                    <button type="submit" class="btn-contract">Подписать договор и отправить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</main>
+
+<footer class="footer-modern">
+    <div class="container">
+        © 2026 Компетентус. Премиальный подбор персонала.
+    </div>
+</footer>
+
+<script src="script.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.getElementById('contractForm');
+
+        // Валидация форм
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            // Сбор данных
+            const formData = {
+                companyName: document.getElementById('companyName').value.trim(),
+                inn: document.getElementById('inn').value.trim(),
+                kpp: document.getElementById('kpp')?.value.trim() || '',
+                phone: document.getElementById('phone').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                legalAddress: document.getElementById('legalAddress').value.trim(),
+                account: document.getElementById('account').value.trim(),
+                bik: document.getElementById('bik').value.trim(),
+                bank: document.getElementById('bank').value.trim(),
+                corrAccount: document.getElementById('corrAccount').value.trim(),
+                director: document.getElementById('director').value.trim(),
+                directorPosition: document.getElementById('directorPosition').value.trim(),
+                consent: document.getElementById('consent').checked,
+                timestamp: new Date().toLocaleString('ru-RU')
+            };
+
+            // Проверка обязательных полей
+            for (let key in formData) {
+                if (key !== 'kpp' && key !== 'consent' && key !== 'directorPosition' && typeof formData[key] === 'string' && !formData[key]) {
+                    alert('Пожалуйста, заполните все обязательные поля');
+                    return;
+                }
+            }
+
+            // Валидация ИНН
+            const inn = formData.inn;
+            if (inn.length === 10) {
+                // Для юрлиц - 10 цифр
+                if (!/^\d{10}$/.test(inn)) {
+                    alert('ИНН юридического лица должен содержать 10 цифр');
+                    return;
+                }
+            } else if (inn.length === 12) {
+                // Для ИП - 12 цифр
+                if (!/^\d{12}$/.test(inn)) {
+                    alert('ИНН ИП должен содержать 12 цифр');
+                    return;
+                }
+            } else {
+                alert('ИНН должен содержать 10 или 12 цифр');
+                return;
+            }
+
+            // Валидация БИК (9 цифр)
+            if (!/^\d{9}$/.test(formData.bik)) {
+                alert('БИК должен состоять из 9 цифр');
+                return;
+            }
+
+            // Валидация расчетного счета (20 цифр)
+            if (!/^\d{20}$/.test(formData.account)) {
+                alert('Расчетный счет должен состоять из 20 цифр');
+                return;
+            }
+
+            // Валидация корр. счета (20 цифр)
+            if (!/^\d{20}$/.test(formData.corrAccount)) {
+                alert('Корреспондентский счет должен состоять из 20 цифр');
+                return;
+            }
+
+            // Валидация email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(formData.email)) {
+                alert('Введите корректный email');
+                return;
+            }
+
+            // Если всё ок — показываем успех
+            showSuccessMessage(formData);
+
+            // Очистка формы (опционально)
+            // form.reset();
+
+            // Логируем в консоль (для отладки)
+            console.log('Данные договора:', formData);
+        });
+
+        function showSuccessMessage(data) {
+            // Создаём сообщение об успехе
+            const messageDiv = document.createElement('div');
+            messageDiv.className = 'success-message';
+
+            // Краткое имя компании для приветствия
+            const shortName = data.companyName.length > 30
+                ? data.companyName.substring(0, 30) + '...'
+                : data.companyName;
+
+            messageDiv.innerHTML = `
+                    <div class="success-icon">✓</div>
+                    <h3>Договор подписан!</h3>
+                    <p><strong>${shortName}</strong>, спасибо! Ваш договор успешно акцептован.</p>
+                    <p style="font-size: 14px; background: #f8fdf9; padding: 10px; border-radius: 10px;">
+                        📋 Номер заявки: #${Math.floor(Math.random() * 10000)}<br>
+                        📅 ${new Date().toLocaleDateString('ru-RU')}
+                    </p>
+                    <p style="color: #555;">Копия договора отправлена на <strong>${data.email}</strong></p>
+                    <button class="btn-close" onclick="this.closest('.success-message').remove()">Закрыть</button>
+                `;
+
+            document.body.appendChild(messageDiv);
+
+            // Автоматически убираем через 10 секунд
+            setTimeout(() => {
+                if (messageDiv.parentElement) {
+                    messageDiv.remove();
+                }
+            }, 10000);
+        }
+
+        // Бургер меню (если используете)
+        const burger = document.getElementById('burger');
+        const navMenu = document.getElementById('nav-menu');
+
+        if (burger && navMenu) {
+            burger.addEventListener('click', function() {
+                navMenu.classList.toggle('active');
+            });
+        }
+
+        // Обработка ошибки загрузки PDF
+        const pdfFrame = document.getElementById('pdfFrame');
+        pdfFrame.addEventListener('error', function() {
+            document.getElementById('pdfLoader').innerHTML = `
+                    <div style="color: #e74c3c; text-align: center;">
+                        <div style="font-size: 40px; margin-bottom: 15px;">⚠️</div>
+                        <p>Не удалось загрузить договор.</p>
+                        <p style="font-size: 14px; margin-top: 10px;">
+                            <a href="https://hr-kadrovik.ru/prof-partner/doc/dogovor-oferty.pdf" target="_blank" style="color: #21A038;">
+                                Скачать договор PDF
+                            </a>
+                        </p>
+                    </div>
+                `;
+        });
+    });
+</script>
+</body>
+</html>
