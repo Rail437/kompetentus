@@ -27,7 +27,7 @@
             position: absolute;
             width: 600px;
             height: 600px;
-            background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 70%);
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, rgba(255, 255, 255, 0) 70%);
             top: -200px;
             right: -200px;
             border-radius: 50%;
@@ -59,16 +59,16 @@
         .contract-card {
             background: white;
             border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
             overflow: hidden;
             margin-bottom: 40px;
-            border: 1px solid rgba(33,160,56,0.1);
+            border: 1px solid rgba(33, 160, 56, 0.1);
         }
 
         .contract-card-header {
             padding: 25px 30px;
             background: linear-gradient(135deg, #f8fffa, #f0f9f0);
-            border-bottom: 1px solid rgba(33,160,56,0.15);
+            border-bottom: 1px solid rgba(33, 160, 56, 0.15);
             display: flex;
             align-items: center;
             gap: 15px;
@@ -122,7 +122,7 @@
         .loader {
             width: 50px;
             height: 50px;
-            border: 4px solid rgba(33,160,56,0.2);
+            border: 4px solid rgba(33, 160, 56, 0.2);
             border-top-color: #21A038;
             border-radius: 50%;
             animation: spin 1s linear infinite;
@@ -130,7 +130,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         #pdfFrame {
@@ -145,9 +147,9 @@
         .form-card {
             background: white;
             border-radius: 30px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
             padding: 40px;
-            border: 1px solid rgba(33,160,56,0.1);
+            border: 1px solid rgba(33, 160, 56, 0.1);
         }
 
         .form-title {
@@ -204,7 +206,7 @@
         .form-group input:focus {
             border-color: #21A038;
             background: white;
-            box-shadow: 0 0 0 4px rgba(33,160,56,0.1);
+            box-shadow: 0 0 0 4px rgba(33, 160, 56, 0.1);
             outline: none;
         }
 
@@ -224,7 +226,7 @@
             display: flex;
             align-items: flex-start;
             gap: 15px;
-            border: 1px solid rgba(33,160,56,0.15);
+            border: 1px solid rgba(33, 160, 56, 0.15);
         }
 
         .checkbox-group input {
@@ -253,13 +255,13 @@
             cursor: pointer;
             transition: 0.3s;
             margin-top: 20px;
-            box-shadow: 0 10px 25px rgba(33,160,56,0.3);
+            box-shadow: 0 10px 25px rgba(33, 160, 56, 0.3);
         }
 
         .btn-contract:hover {
             background: #0D7A2F;
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(33,160,56,0.4);
+            box-shadow: 0 15px 30px rgba(33, 160, 56, 0.4);
         }
 
         /* Уведомление об успехе */
@@ -271,12 +273,12 @@
             background: white;
             padding: 40px;
             border-radius: 30px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.2);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
             z-index: 10000;
             text-align: center;
             max-width: 450px;
             animation: slideUp 0.4s ease;
-            border: 1px solid rgba(33,160,56,0.2);
+            border: 1px solid rgba(33, 160, 56, 0.2);
         }
 
         .success-icon {
@@ -448,25 +450,18 @@
 
             <form id="contractForm">
                 <div class="form-grid">
-                    <!-- ИП / Юридическое лицо -->
+                    <!-- ФИО -->
                     <div class="form-group full-width">
-                        <label for="companyName">Наименование организации / ИП *</label>
-                        <input type="text" id="companyName" name="companyName" placeholder="ООО «Компания» или ИП Иванов И.И." required>
+                        <label for="fio">ФИО *</label>
+                        <input type="text" id="fio" name="fio" placeholder="Иванов Иван Иванович" required>
                         <div class="field-hint">Полное наименование согласно учредительным документам</div>
                     </div>
 
                     <!-- ИНН -->
                     <div class="form-group">
                         <label for="inn">ИНН *</label>
-                        <input type="text" id="inn" name="inn" placeholder="12 цифр для ИП, 10 для ООО" maxlength="12" required>
+                        <input type="text" id="inn" name="inn" placeholder="ИНН 12 цифр " maxlength="12" required>
                         <div class="field-hint">Идентификационный номер налогоплательщика</div>
-                    </div>
-
-                    <!-- КПП (для юрлиц) -->
-                    <div class="form-group">
-                        <label for="kpp">КПП</label>
-                        <input type="text" id="kpp" name="kpp" placeholder="9 цифр (для ООО)">
-                        <div class="field-hint">Для ИП не заполняется</div>
                     </div>
 
                     <!-- Телефон -->
@@ -481,10 +476,11 @@
                         <input type="email" id="email" name="email" placeholder="company@example.ru" required>
                     </div>
 
-                    <!-- Юридический адрес -->
+                    <!-- Прописка -->
                     <div class="form-group full-width">
-                        <label for="legalAddress">Юридический адрес *</label>
-                        <input type="text" id="legalAddress" name="legalAddress" placeholder="Индекс, город, улица, дом" required>
+                        <label for="legalAddress">Прописка *</label>
+                        <input type="text" id="legalAddress" name="legalAddress" placeholder="Индекс, город, улица, дом"
+                               required>
                     </div>
 
                     <!-- Расчётный счёт -->
@@ -508,27 +504,18 @@
                     <!-- Корр. счёт -->
                     <div class="form-group">
                         <label for="corrAccount">Корреспондентский счёт *</label>
-                        <input type="text" id="corrAccount" name="corrAccount" placeholder="20 цифр" maxlength="20" required>
-                    </div>
-
-                    <!-- Директор / Представитель -->
-                    <div class="form-group">
-                        <label for="director">Руководитель *</label>
-                        <input type="text" id="director" name="director" placeholder="Иванов Иван Иванович" required>
-                    </div>
-
-                    <!-- Должность руководителя (скрытое поле или явное) -->
-                    <div class="form-group">
-                        <label for="directorPosition">Должность руководителя</label>
-                        <input type="text" id="directorPosition" name="directorPosition" value="Генеральный директор">
+                        <input type="text" id="corrAccount" name="corrAccount" placeholder="20 цифр" maxlength="20"
+                               required>
                     </div>
 
                     <!-- Блок согласия -->
                     <div class="checkbox-group">
                         <input type="checkbox" id="consent" name="consent" required>
                         <label for="consent">
-                            <strong>Я подтверждаю, что ознакомился с условиями договора оферты, полностью согласен с ними и акцептую его условия.</strong>
-                            Также даю согласие на обработку персональных данных в соответствии с Федеральным законом № 152-ФЗ «О персональных данных».
+                            <strong>Я подтверждаю, что ознакомился с условиями договора оферты, полностью согласен с
+                                ними и акцептую его условия.</strong>
+                            Также даю согласие на обработку персональных данных в соответствии с Федеральным законом №
+                            152-ФЗ «О персональных данных».
                         </label>
                     </div>
 
@@ -548,16 +535,16 @@
 
 <script src="script.js"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('contractForm');
 
         // Валидация форм
-        form.addEventListener('submit', function(e) {
+        form.addEventListener('submit', function (e) {
             e.preventDefault();
 
             // Сбор данных
             const formData = {
-                companyName: document.getElementById('companyName').value.trim(),
+                fio: document.getElementById('fio').value.trim(),
                 inn: document.getElementById('inn').value.trim(),
                 kpp: document.getElementById('kpp')?.value.trim() || '',
                 phone: document.getElementById('phone').value.trim(),
@@ -583,20 +570,9 @@
 
             // Валидация ИНН
             const inn = formData.inn;
-            if (inn.length === 10) {
-                // Для юрлиц - 10 цифр
-                if (!/^\d{10}$/.test(inn)) {
-                    alert('ИНН юридического лица должен содержать 10 цифр');
-                    return;
-                }
-            } else if (inn.length === 12) {
-                // Для ИП - 12 цифр
-                if (!/^\d{12}$/.test(inn)) {
-                    alert('ИНН ИП должен содержать 12 цифр');
-                    return;
-                }
-            } else {
-                alert('ИНН должен содержать 10 или 12 цифр');
+            // Для ИП - 12 цифр
+            if (!/^\d{12}$/.test(inn)) {
+                alert('ИНН должен содержать 12 цифр');
                 return;
             }
 
@@ -641,9 +617,9 @@
             messageDiv.className = 'success-message';
 
             // Краткое имя компании для приветствия
-            const shortName = data.companyName.length > 30
-                ? data.companyName.substring(0, 30) + '...'
-                : data.companyName;
+            const shortName = data.fio.length > 30
+                ? data.fio.substring(0, 30) + '...'
+                : data.fio;
 
             messageDiv.innerHTML = `
                     <div class="success-icon">✓</div>
@@ -672,14 +648,14 @@
         const navMenu = document.getElementById('nav-menu');
 
         if (burger && navMenu) {
-            burger.addEventListener('click', function() {
+            burger.addEventListener('click', function () {
                 navMenu.classList.toggle('active');
             });
         }
 
         // Обработка ошибки загрузки PDF
         const pdfFrame = document.getElementById('pdfFrame');
-        pdfFrame.addEventListener('error', function() {
+        pdfFrame.addEventListener('error', function () {
             document.getElementById('pdfLoader').innerHTML = `
                     <div style="color: #e74c3c; text-align: center;">
                         <div style="font-size: 40px; margin-bottom: 15px;">⚠️</div>
