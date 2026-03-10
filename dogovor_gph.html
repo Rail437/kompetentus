@@ -546,7 +546,6 @@
             const formData = {
                 fio: document.getElementById('fio').value.trim(),
                 inn: document.getElementById('inn').value.trim(),
-                kpp: document.getElementById('kpp')?.value.trim() || '',
                 phone: document.getElementById('phone').value.trim(),
                 email: document.getElementById('email').value.trim(),
                 legalAddress: document.getElementById('legalAddress').value.trim(),
@@ -554,8 +553,6 @@
                 bik: document.getElementById('bik').value.trim(),
                 bank: document.getElementById('bank').value.trim(),
                 corrAccount: document.getElementById('corrAccount').value.trim(),
-                director: document.getElementById('director').value.trim(),
-                directorPosition: document.getElementById('directorPosition').value.trim(),
                 consent: document.getElementById('consent').checked,
                 timestamp: new Date().toLocaleString('ru-RU')
             };
